@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+
+
+<suite name="SimpleSuite">
+
+	<listeners>
+		<listener
+			class-name="by.htp.mail.listener.TestFailCustomListener" />
+	</listeners>
+	
+	
+
+
+	<test name="SimpleTest">
+		<groups>
+			<run>
+				<include name="login"></include>
+			</run>
+		</groups>
+
+		<classes>
+			<class name="by.htp.mail.tests.LogInTest"></class>
+			<class name="by.htp.mail.tests.TheLetterIsSentTest"></class>
+		</classes>
+	</test>
+</suite>
+
