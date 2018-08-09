@@ -9,14 +9,14 @@ import by.htp.insta.steps.Steps;
 public class LikeAutomation {
 	private Steps steps;
 
-	@BeforeMethod(description = "Init browser", groups = { "login" })
+	@BeforeMethod(description = "Init browser", groups = { "likeAutomation" })
 	public void setUp() {
 		steps = new Steps();
 		steps.initBrowser();
 		steps.LogIn();
 	}
 
-	@Test
+	@Test(groups = {"likeAutomation"})
 	public void LikesAutomationForDotNet() throws InterruptedException {
 		steps.LikesForMarketing();
 	}

@@ -5,24 +5,17 @@
 
 <suite name="SimpleSuite">
 
-	<listeners>
-		<listener
-			class-name="by.htp.mail.listener.TestFailCustomListener" />
-	</listeners>
-	
-	
-
 
 	<test name="SimpleTest">
 		<groups>
 			<run>
-				<include name="login"></include>
+				<include name="likeAutomation"></include>
 			</run>
 		</groups>
 
 		<classes>
-			<class name="by.htp.mail.tests.LogInTest"></class>
-			<class name="by.htp.mail.tests.TheLetterIsSentTest"></class>
+			<class name="by.htp.insta.tests.likeautomation.LikeAutomation"></class>
+			<class name="by.htp.insta.steps.Steps"></class>
 		</classes>
 	</test>
 </suite>
