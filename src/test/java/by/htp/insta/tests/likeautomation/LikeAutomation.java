@@ -16,7 +16,7 @@ public class LikeAutomation {
 		steps.LogIn();
 	}
 
-	@Test(groups = {"likeAutomation"})
+	@Test(groups = { "likeAutomation" })
 	public void LikesAutomationForDotNet() throws InterruptedException {
 		steps.LikesForMarketing();
 	}

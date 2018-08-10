@@ -14,7 +14,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage extends AbstractPage {
 	private final String BASE_URL = "https://mail.ru/login";
-	int numbersOfLikes = 4;
+	int numbersOfLikes = 3;
+
+	public static List<String> hashTags = new ArrayList<String>();
+	public String tag1 = "#dotNET";
+	public String tag2 = "#reactjs";
+	public String tag3 = "#php";
+	public String tag4 = "#angular";
+
+	int a = 0;
+	int b = 3;
+	int random_number = a + (int) (Math.random() * b);
 
 	public MainPage(WebDriver driver) {
 		super(driver);
@@ -44,9 +54,6 @@ public class MainPage extends AbstractPage {
 	@FindBy(xpath = "//input[@type='text']")
 	private WebElement searchField;
 
-	@FindBy(xpath = "//*[@id='react-root']/section/main/article/div[1]/div/div/div[1]/div[1]/a")
-	private WebElement firstPost;
-
 	@FindBy(xpath = "//button[contains(@class,'coreSpriteHeartOpen')]/span")
 	private WebElement heartButton;
 
@@ -61,6 +68,9 @@ public class MainPage extends AbstractPage {
 
 	@FindBy(xpath = "//a[text() = 'Next']")
 	private WebElement nextPostButton;
+
+	@FindBy(xpath = "//button[@class='ckWGn']")
+	private WebElement closePostButton;
 
 	public void clickOnParameters() {
 		parameters.click();
@@ -97,29 +107,38 @@ public class MainPage extends AbstractPage {
 				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='text']]")));
 	}
 
-	public void inputHashTag(String hashTag) {
-		searchField.sendKeys(hashTag);
-		firstItemFromDropDown.click();
-	}
+	public void firstItemInDropDown() {
+		WebElement dinamicElement = (new WebDriverWait(driver, 10))
+				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='fuqBx']/a[1]")));
 
-	public void clickLikeOnFirstPost() {
-		firstPost.click();
-		heartButton.click();
 	}
 
 	public void clickOnEmptyArea() {
 		Actions action = new Actions(driver);
-		action.moveToElement(heartButton, 300, 100).click().build().perform();
+		action.moveToElement(heartButton, 400, 0).click().build().perform();
 	}
 
-	public void sendLikes() throws InterruptedException {
+	public void clickOnClosePostButton() {
+		closePostButton.click();
+	}
+
+	public void clickLikeIn90PercentOfCases() throws InterruptedException {
+		double d = Math.random() * 100;
+		if ((d -= 90) < 0) {
+			Thread.sleep((long) (Math.random() * 2000));
+			heartButton.click();
+		} else {
+			Thread.sleep((long) (Math.random() * 2000));
+			nextPostButton.click();
+		}
+	}
+
+	public void iteraction() throws InterruptedException {
 		firstRecentPost.click();
 		int count = 0;
 		do {
 			if (LikedOrNot() == true) {
-				heartButton.click();
-				Thread.sleep(2000);
-				nextPostButton.click();
+				clickLikeIn90PercentOfCases();
 				count++;
 			} else if (LikedOrNot() == false) {
 				nextPostButton.click();
@@ -127,7 +146,30 @@ public class MainPage extends AbstractPage {
 		} while (count < numbersOfLikes);
 	}
 
-	public boolean LikedOrNot() {
+	public void sendLikes() throws InterruptedException {
+		List<String> hashTags = new ArrayList<String>(5);
+		hashTags.add(new String(tag1));
+		hashTags.add(new String(tag2));
+		hashTags.add(new String(tag3));
+		hashTags.add(new String(tag4));
+		
+		int count =0;
+          do {
+		searchField.sendKeys(hashTags.get(0));
+		Thread.sleep(3000);
+		firstItemFromDropDown.click();
+		Thread.sleep(2000);
+		hashTags.remove(0);
+		System.out.println(hashTags);
+		iteraction();
+		clickOnClosePostButton();
+		count++;
+          }while (count < 4);
+
+	}
+
+	public boolean LikedOrNot() throws InterruptedException {
+		Thread.sleep(2000);
 		String str1 = heartButton.getAttribute("aria-label");
 		if (str1.equals("Like")) {
 			return true;

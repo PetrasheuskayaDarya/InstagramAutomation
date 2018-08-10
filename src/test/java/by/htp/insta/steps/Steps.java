@@ -36,7 +36,6 @@ public class Steps {
 
 	public void LikesForMarketing() throws InterruptedException {
 		MainPage mainPage = new MainPage(driver);
-		mainPage.inputHashTag(hashTag);
 		mainPage.sendLikes();
 	}
 
