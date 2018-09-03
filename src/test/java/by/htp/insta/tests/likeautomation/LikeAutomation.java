@@ -17,7 +17,7 @@ public class LikeAutomation {
 	}
 
 	@Test(groups = { "likeAutomation" })
-	public void LikesAutomationForDotNet() throws InterruptedException {
+	public void LikesAutomation() throws InterruptedException {
 		steps.LikesForMarketing();
 	}
 

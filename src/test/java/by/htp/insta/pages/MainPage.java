@@ -2,6 +2,7 @@ package by.htp.insta.pages;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,8 +22,9 @@ public class MainPage extends AbstractPage {
 	public String tag2 = "#reactjs";
 	public String tag3 = "#php";
 	public String tag4 = "#angular";
+	public String tag5 = "#rubyonrails";
 
-	int a = 0;
+	int a = 1;
 	int b = 3;
 	int random_number = a + (int) (Math.random() * b);
 
@@ -42,7 +44,7 @@ public class MainPage extends AbstractPage {
 	@FindBy(xpath = "//button[text()='Log Out']")
 	private WebElement logOutButton;
 
-	@FindBy(xpath = "//*[@id=\'react-root\']/div/div[2]/a[2]")
+	@FindBy(xpath = "//*[@id='react-root']/div/div[2]/a[2]")
 	private WebElement LinkNotNow;
 
 	@FindBy(className = "coreSpriteDesktopNavProfile")
@@ -107,10 +109,18 @@ public class MainPage extends AbstractPage {
 				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//input[@type='text']]")));
 	}
 
-	public void firstItemInDropDown() {
+	public WebElement waitForFirstItemInDropDownPresent() {
 		WebElement dinamicElement = (new WebDriverWait(driver, 10))
 				.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@class='fuqBx']/a[1]")));
-
+		return dinamicElement;
+	}
+	
+	public void waitForPageLoads() throws InterruptedException {
+		Thread.sleep(3000);
+	}
+	
+	public void clickOnFirstItemInDropDown() {
+		waitForFirstItemInDropDownPresent().click();
 	}
 
 	public void clickOnEmptyArea() {
@@ -143,28 +153,29 @@ public class MainPage extends AbstractPage {
 			} else if (LikedOrNot() == false) {
 				nextPostButton.click();
 			}
-		} while (count < numbersOfLikes);
+		} while (count < random_number);
 	}
 
 	public void sendLikes() throws InterruptedException {
-		List<String> hashTags = new ArrayList<String>(5);
+		List<String> hashTags = new ArrayList<String>(6);
+
 		hashTags.add(new String(tag1));
 		hashTags.add(new String(tag2));
 		hashTags.add(new String(tag3));
 		hashTags.add(new String(tag4));
-		
-		int count =0;
-          do {
-		searchField.sendKeys(hashTags.get(0));
-		Thread.sleep(3000);
-		firstItemFromDropDown.click();
-		Thread.sleep(2000);
-		hashTags.remove(0);
-		System.out.println(hashTags);
-		iteraction();
-		clickOnClosePostButton();
-		count++;
-          }while (count < 4);
+		hashTags.add(new String(tag5));
+
+		int count = 0;
+		do {
+			searchField.sendKeys(hashTags.get(0));
+			clickOnFirstItemInDropDown();
+			waitForPageLoads();
+			hashTags.remove(0);
+			System.out.println(hashTags);
+			iteraction();
+			clickOnClosePostButton();
+			count++;
+		} while (count < 5);
 
 	}
 
