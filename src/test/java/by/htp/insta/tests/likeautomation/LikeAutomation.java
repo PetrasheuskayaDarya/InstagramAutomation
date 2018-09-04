@@ -10,10 +10,11 @@ public class LikeAutomation {
 	private Steps steps;
 
 	@BeforeMethod(description = "Init browser", groups = { "likeAutomation" })
-	public void setUp() {
+	public void setUp() throws InterruptedException {
 		steps = new Steps();
 		steps.initBrowser();
 		steps.LogIn();
+		Thread.sleep(3000);
 	}
 
 	@Test(groups = { "likeAutomation" })

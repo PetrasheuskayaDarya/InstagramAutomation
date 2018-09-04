@@ -12,10 +12,6 @@ public class Steps {
 	MyInstaPropertyManager conf = new MyInstaPropertyManager();
 	LoginPage loginPage = new LoginPage(driver);
 	MainPage mainPage = new MainPage(driver);
-	public static String hashTag = "#dotNET";
-	public static String hashTag1 = "#reactjs";
-	public static String hashTag2 = "#php";
-	public static String hashTag3 = "#angular";
 
 	public void initBrowser() {
 		driver = DriverSingleton.getDriver();
@@ -25,13 +21,13 @@ public class Steps {
 		DriverSingleton.closeDriver();
 	}
 
-	public void LogIn() {
+	public void LogIn() throws InterruptedException {
 		LoginPage loginPage = new LoginPage(driver);
 		MainPage mainPage = new MainPage(driver);
 		loginPage.openPage();
 		loginPage.login(conf.getLogin(), conf.getPass());
-		mainPage.clickNotNowLink();
-		mainPage.clickNotNowNotifications();
+		//mainPage.clickNotNowLink();
+		//mainPage.clickNotNowNotifications();
 	}
 
 	public void LikesForMarketing() throws InterruptedException {

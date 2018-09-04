@@ -24,8 +24,8 @@ public class MainPage extends AbstractPage {
 	public String tag4 = "#angular";
 	public String tag5 = "#rubyonrails";
 
-	int a = 1;
-	int b = 3;
+	int a = 20;
+	int b = 25;
 	int random_number = a + (int) (Math.random() * b);
 
 	public MainPage(WebDriver driver) {
@@ -131,14 +131,18 @@ public class MainPage extends AbstractPage {
 	public void clickOnClosePostButton() {
 		closePostButton.click();
 	}
+	
+	public void randonWaitBeforeAction() throws InterruptedException {
+		Thread.sleep((long) (Math.random() * 2000));
+	}
 
 	public void clickLikeIn90PercentOfCases() throws InterruptedException {
 		double d = Math.random() * 100;
 		if ((d -= 90) < 0) {
-			Thread.sleep((long) (Math.random() * 2000));
+			randonWaitBeforeAction();
 			heartButton.click();
 		} else {
-			Thread.sleep((long) (Math.random() * 2000));
+			randonWaitBeforeAction();
 			nextPostButton.click();
 		}
 	}
@@ -180,7 +184,7 @@ public class MainPage extends AbstractPage {
 	}
 
 	public boolean LikedOrNot() throws InterruptedException {
-		Thread.sleep(2000);
+		waitForPageLoads();
 		String str1 = heartButton.getAttribute("aria-label");
 		if (str1.equals("Like")) {
 			return true;

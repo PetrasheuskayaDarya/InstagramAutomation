@@ -56,19 +56,20 @@ public class LoginPage extends AbstractPage {
 		loginButton.click();
 	}
 
-	public void login(String login, String password) {
+	public void login(String login, String password) throws InterruptedException {
 		loginField.sendKeys(login);
 		passwordField.sendKeys(password);
+		Thread.sleep(3000);
 		loginButton.click();
 	}
 
-	public void loginValid(String login, String password) {
+	public void loginValid(String login, String password) throws InterruptedException {
 		login(login, password);
 		WebElement dinamicElement = (new WebDriverWait(driver, 10)).until(
 				ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\'react-root\']/div/div[2]/a[2]")));
 	}
 
-	public void loginInvalid(String login, String password) {
+	public void loginInvalid(String login, String password) throws InterruptedException {
 		login(login, password);
 		WebElement dinamicElement = (new WebDriverWait(driver, 10))
 				.until(ExpectedConditions.presenceOfElementLocated(By.id("slfErrorAlert")));
