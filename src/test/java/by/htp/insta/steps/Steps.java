@@ -27,7 +27,7 @@ public class Steps {
 		loginPage.openPage();
 		loginPage.login(conf.getLogin(), conf.getPass());
 		//mainPage.clickNotNowLink();
-		//mainPage.clickNotNowNotifications();
+		mainPage.clickNotNowNotifications();
 	}
 
 	public void LikesForMarketing() throws InterruptedException {
